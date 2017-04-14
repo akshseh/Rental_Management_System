@@ -1,2 +1,2 @@
 # Rental_Management_System
-App to find the most appropriate rentals.
+Web-app to find rentals suited to your needs or publish your properties which are available for rent.
