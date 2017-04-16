@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <!--
 Template Name: Dodmond
@@ -12,15 +13,15 @@ Licence URI: http://www.os-templates.com/template-terms
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <!-- <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all"> -->
-<link href="static/css/layout.css" rel="stylesheet" type="text/css" media="all">
+<!-- <link href="static/css/layout.css" rel="stylesheet" type="text/css" media="all">
 <link href="static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
 <link href="static/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
 <link href="static/css/custom-flexslider.css" rel="stylesheet" type="text/css" media="all">
-
-<!-- <link href="{% static 'css/layout.css' %}" rel="stylesheet" type="text/css" media="all"> -->
-<!-- <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all"> -->
-<!-- <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" media="all"> -->
-<!-- <link href="{% static 'css/custom-flexslider.css' %}" rel="stylesheet" type="text/css" media="all"> -->
+ -->
+<link href="{% static 'css/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all">
+<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" media="all">
+<link href="{% static 'css/custom-flexslider.css' %}" rel="stylesheet" type="text/css" media="all">
 
 </head>
 <body id="top">
@@ -39,9 +40,11 @@ Licence URI: http://www.os-templates.com/template-terms
     <div class="fl_right">
       <ul>
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="login.html">Login</a></li>
+        <!-- <li><a href="login.html">Login</a></li>
         <li><a href="register.html">Register as owner</a></li>
         <li><a href="register.html">Register as visitor</a></li>
+ -->
+        <li><a href="{% url 'logout' %}">Logout</a></li>
 
         <!-- <li><a href="{% url 'login' %}">Login</a></li>
         <li><a href="{% url 'register' %}">Register as owner</a></li>
@@ -133,21 +136,23 @@ Licence URI: http://www.os-templates.com/template-terms
       <form action = "#" method = "post" >
         {% csrf_token %}
         <label class="sr-o" for="sort"><b>SORT BY:</b></label>
-        <input type='radio' name='sort' value='1'><label for="1"> By Distance</label>
-        <input type='radio' name='sort' value='2'><label> By Rating</label>
-        <input type='radio' name='sort' value='3'><label> By No. of Views </label><br>
+        <input type='radio' name='sortBy' value='1'><label for="1"> By Distance</label>
+        <input type='radio' name='sortBy' value='2'><label> By Rating</label>
+        <input type='radio' name='sortBy' value='3'><label> By No. of Views </label><br>
         <label class="sr-o" for="query"><b>Choose one of the following queries:</b></label>
         <input type='radio' name='query' value='1'><label> More than x avg-rating</label>
         <input type='radio' name='query' value='2'><label> Atleast x 5-star ratings</label>
         <input type='radio' name='query' value='3'><label> Distance of vicinity </label>
-        <input type='radio' name='query' value='4'><label> Maximum rent</label>
-        
+        <input type='radio' name='query' value='4'><label> Maximum rent</label><br>
+        <input type='text' name='val' placeholder="Enter value">
+        <br>
         <input type='submit' class="btn" value='search'><br>
       </form>
+        <br><br><br>
       <div class="sdb_holder">
-        <h6>My Description</h6>
+        <h6>My Profile</h6>
         <address>
-        <p>{{ request.user.description }}</p>
+        <p>{{ curr_visitor.profile }}</p>
         </address>
       </div>
       <!-- ################################################################################################ -->
@@ -156,7 +161,7 @@ Licence URI: http://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
     <div class="content two_third"> 
       <!-- ################################################################################################ -->
-      <h1>My Properties</h1>
+      <h1>Properties</h1>
       <!-- <img class="imgr borderedbox inspace-5" src="../images/demo/imgr.gif" alt="">
       <p>Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.</p>
       <p>Dapiensociis <a href="#">temper donec auctortortis cumsan</a> et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.</p>
@@ -166,16 +171,20 @@ Licence URI: http://www.os-templates.com/template-terms
       <p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.</p> -->
 
       {% for i in properties %}
-          <a href="#"> {{ i.id }} </a>
-           {{ i.description }} 
-           {{ i.location }} 
-           {{ i.num_views }}
+          <a href="#"> <b>Property</b>{{ i.id }}<br></a>
+          <b>Description: </b> {{ i.description }}<br> 
+          <b>Location: </b> {{ i.location }} <br>
+          <b>Price: </b> {{ i.price }}<br>
+          <b>Number of views: </b> {{ i.num_views }}<br><br><br>
       {% endfor %}
 
       <div class="pagination">
         <!-- <span class="step-links"> -->
+        <div class='one_third' first>
+        </div>
+        <div class="one_third">
             {% if properties.has_previous %}
-                <a href="?page={{ properties.previous_page_number }}">previous</a>
+                <a href="?page={{ properties.previous_page_number }}" class="btn">previous</a>
             {% endif %}
 
             <!-- <span class="current"> -->
@@ -183,8 +192,9 @@ Licence URI: http://www.os-templates.com/template-terms
             <!-- </span> -->
 
             {% if properties.has_next %}
-                <a href="?page={{ properties.next_page_number }}">next</a>
+                <a href="?page={{ properties.next_page_number }}" class="btn">next</a>
             {% endif %}
+          </div>
         <!-- </span> -->
       </div>
 <!-- 
