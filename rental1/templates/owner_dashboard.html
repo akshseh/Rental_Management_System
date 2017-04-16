@@ -40,10 +40,11 @@ Licence URI: http://www.os-templates.com/template-terms
     <div class="fl_right">
       <ul>
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="login.html">Login</a></li>
+      <!--   <li><a href="login.html">Login</a></li>
         <li><a href="register.html">Register as owner</a></li>
         <li><a href="register.html">Register as visitor</a></li>
-
+ -->    <li><a href="{% url 'logout' %}">Logout</a></li>
+        
         <!-- <li><a href="{% url 'login' %}">Login</a></li>
         <li><a href="{% url 'register' %}">Register as owner</a></li>
         <li><a href="{% url 'register' %}">Register as visitor</a></li>
@@ -133,15 +134,13 @@ Licence URI: http://www.os-templates.com/template-terms
       </nav>
       <form action = "#" method = "post" >
         {% csrf_token %}
-        <input type='radio' name='sort' value='alphabetical_order'>By Name <br>
-        <input type='radio' name='sort' value='rent_order'>By Rent due <br>
+        <p><b>Sort:</b></p>
+        <input type='radio' name='sort' value='1'>By Name <br>
+        <input type='radio' name='sort' value='2'>By Rent due <br><br><br>
         <input type='submit' class="btn" value='search'><br>
       </form>
       <div class="sdb_holder">
-        <h6>My Description</h6>
-        <address>
-        <p>{{ request.user.description }}</p>
-        </address>
+      
       </div>
       <!-- ################################################################################################ -->
     </div>
@@ -149,6 +148,13 @@ Licence URI: http://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
     <div class="content three_quarter"> 
       <!-- ################################################################################################ -->
+      <h1>Tenants</h1>
+      {% for tenant in tenants %}
+      <b>Username:</b>{{ tenant.visitor_id }}<br>
+      <b>Profile:</b>{{ tenant.visitor_id.profile }}<br>
+      <b>Rent to be paid:</b>{{ tenant.rent_to_be_paid }}<br>
+      {% endfor %}
+      <br><br><br>
       <h1>My Properties</h1>
       <!-- <img class="imgr borderedbox inspace-5" src="../images/demo/imgr.gif" alt="">
       <p>Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.</p>
@@ -159,11 +165,13 @@ Licence URI: http://www.os-templates.com/template-terms
       <p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.</p> -->
 
       {% for i in properties %}
-          <a href="#"> {{ i.id }} </a>
-           {{ i.description }} 
-           {{ i.location }} 
-           {{ i.num_views }}
+          <a href="#"> <b>Property</b>{{ i.id }}<br></a>
+           <strong> Description : </strong> {{ i.description }}<br>
+           <strong> Located in : </strong> {{ i.location }} <br>
+           <strong> Num of views : </strong> {{ i.num_views }}<br>
+           <br><br>
       {% endfor %}
+    </div>
 
       <div class="pagination">
         <!-- <span class="step-links"> -->
@@ -180,6 +188,8 @@ Licence URI: http://www.os-templates.com/template-terms
             {% endif %}
         <!-- </span> -->
       </div>
+
+
 <!-- 
       <div id="comments">
         <h2>Comments</h2>
@@ -253,7 +263,7 @@ Licence URI: http://www.os-templates.com/template-terms
         </form>
       </div> -->
       <!-- ################################################################################################ -->
-    </div>
+
     <!-- ################################################################################################ -->
     <!-- / main body -->
     <div class="clear"></div>
