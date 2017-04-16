@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'^login/ownerDashboard$',views.owner_dashboard,  name="ownerdashboard"),
     url(r'^dashboard$',           views.dashboard,        name="dashboard"),
     url(r'^register$',            views.register,         name="register"),
+    url(r'^registerVisitor$',     views.register_visitor, name="registerVis"),
     url(r'^login/addProperty$',   views.add_property,     name="addProperty"),
-    
+    url(r'^logout$',              views.logout_user,      name="logout"),
+    url(r'^viewProp$',            views.view_prop,        name="prop"),
+
 ]
