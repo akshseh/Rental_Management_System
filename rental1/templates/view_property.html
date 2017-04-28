@@ -30,10 +30,11 @@ Licence URI: http://www.os-templates.com/template-terms
     </div>
     <div class="fl_right">
       <ul>
-        <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Register as owner</a></li>
-        <li><a href="register.html">Register as visitor</a></li>
+        <li><a href="{% url 'home' %}"><i class="fa fa-lg fa-home"></i></a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Register as owner</a></li>
+        <li><a href="{% url 'registerVis' %}">Register as visitor</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
       </ul>
     </div>
   </div>
@@ -41,7 +42,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="../home.html">RENT IT OUT</a></h1>
+      <h1><a href="{% url 'home' %}">RENT IT OUT</a></h1>
       <p>We provide the best</p>
     </div>
     <div id="quickinfo" class="fl_right">
@@ -55,58 +56,94 @@ Licence URI: http://www.os-templates.com/template-terms
   </header>
    <nav id="mainav" class="hoc clear"> 
     <ul class="clear">
-      <li class="active"><a href="#">Home</a></li>
-      <li class="active"><a href="#">Contact Us</a></li>
+      <li class="active"><a href="{% url 'home' %}">Home</a></li>
+      <li class="active"><a href="{% url 'home' %}">Contact Us</a></li>
     </ul>
   </nav>
 </div>
 
 <div class="wrapper bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
   <section id="breadcrumb" class="hoc clear"> 
-    <h6 class="heading">Hi {{review.visitor_id.user.username}}</h6>
+    <h6 class="heading">Hi {{ request.user }}</h6>
   </section>
 </div>
 <div class="wrapper row3">
   <main class="hoc container clear"> 
     <div class="content"> 
-      <h1>Property on Rent</h1>
-      <img class="imgl borderedbox inspace-5" src="../images/demo/imgl.gif" alt="">
-      <p>{{ description }}</p>
+      
+      <h1><i class="fa fa-lg fa-home"></i> Property on Rent</h1><br>
+      <p> <b>Owned by : </b>{{ prop.owner.owner_name}}
+      <p><b>Description :</b>{{ prop.description }}</p>
+      <p><b>Price: </b>{{ prop.price }}</p>
+      <p><b>Number of views: </b>{{ prop.num_views }}</p><br>
+      <img class="imgl borderedbox inspace-5" src="{% static 'images/house3.jpg' %}" alt="">
        <br><br><br><br><br><br><br>
+       <br><br><br><br><br><br><br>
+       <br><br><br><br><br><br><br>
+       <br><br><br><br><br><br><br>
+       {% if disp_comment %}
+       <form action="#" method="post">
+       {% csrf_token %}
+       <div>
+            <input type="submit" name="rent" value="RENT THIS HOUSE" class="btn">
+        </div>
+        </form>
+        {% else %}
+          <form action="#" method="post">
+           {% csrf_token %}
+           <div>
+              <input type="submit" name="rent" value="RENT THIS HOUSE" class="btn">
+            </div>
+        </form>
 
-       <!-- HERE HERE HERE HERE HERE  =======================================================-->
-       <!-- {% for i %} -->
+        {% endif %}
+       <br><br><br><br>
        <div id="comments">
         <h2>Comments</h2>
         <ul>
+        {% for i in review %}
           <li>
             <article>
               <header>
-                <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
+                <figure class="avatar"><img src="{% static 'images/avatar.png' %}" alt=""></figure>
                 <address>
-                By : <b>{{ review.visitor_id.user.username }}</b>
+                By : <b>{{ i.visitor_id.user.username }}</b>
                 </address>
                 </header>
               <div class="comcont">
-                <p>{{review.comment}}</p>
+                <p>{{ i.comment }}</p>
+                <p><b>Rating</b> : {{ i.rating }}
+                <hr>
               </div>
             </article>
           </li>
+          {% endfor %}
         </ul>
+       {% if disp_comment %}
         <h2>Write A Comment</h2>
         <form action="#" method="post">
-          <div class="one_third first">
-            <label for="name">Name <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22" required>
-          </div>
+        {% csrf_token %}
+            <p><b> Comment as : {{ user.username}}</b></p>
           <div class="block clear">
             <label for="comment">Your Comment</label>
             <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-          </div>
+            <!-- 
+            <input type="radio" name="rating" value="1">1
+            <input type="radio" name="rating" value="2" >2
+            <input type="radio" name="rating" value="3">3
+            <input type="radio" name="rating" value="4">4
+            <input type="radio" name="rating" value="5">5 -->
+            <!-- <input type="number" name="rating" size = "22" min="1" max="5" required>
+           --></div>
+          <div class="one_third first">
+            <label for="rating">Rating</label>
+            <input type="number" name="rating" value="" size="22" min="1" max="5" required>
+          </div><br></b><br><br><br><br>
           <div>
-            <input type="submit" name="submit" value="Submit Form">
+            <input type="submit" name="form" value="Submit Form">
           </div>
         </form>
+    {% endif %}
       </div>
     </div>
    
@@ -119,9 +156,9 @@ Licence URI: http://www.os-templates.com/template-terms
       <h2 class="heading">Rent It Out</h2>
       <nav>
         <ul class="nospace inline pushright uppercase">
-          <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="{% url 'home' %}"><i class="fa fa-lg fa-home"></i></a></li>
+          <li><a href="{% url 'home' %}">About</a></li>
+          <li><a href="{% url 'home' %}">Contact</a></li>
           </ul>
       </nav>
     </div>

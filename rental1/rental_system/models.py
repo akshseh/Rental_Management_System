@@ -47,7 +47,6 @@ class Rented(models.Model):
 class Review(models.Model):
 	prop_id = models.ForeignKey('rental_system.Property',on_delete = models.CASCADE )
 	visitor_id = models.ForeignKey('rental_system.Visitor',on_delete = models.CASCADE )
-	# visitor_name = models.CharField(max_length = 30, blank = False)
 	rating = models.IntegerField(default=0)
 	comment = models.CharField(max_length = 100,blank = False)
 	def __str__(self):

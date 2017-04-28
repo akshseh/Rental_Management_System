@@ -39,7 +39,7 @@ Licence URI: http://www.os-templates.com/template-terms
     </div>
     <div class="fl_right">
       <ul>
-        <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
+        <li><a href="{% url 'home' %}"><i class="fa fa-lg fa-home"></i></a></li>
         <!-- <li><a href="login.html">Login</a></li>
         <li><a href="register.html">Register as owner</a></li>
         <li><a href="register.html">Register as visitor</a></li>
@@ -62,7 +62,7 @@ Licence URI: http://www.os-templates.com/template-terms
   <header id="header" class="hoc clear"> 
     <!-- ################################################################################################ -->
     <div id="logo" class="fl_left">
-      <h1><a href="#">Rent it Out</a></h1>
+      <h1><a href="{% url 'home' %}">Rent it Out</a></h1>
       <p>We provide the best</p>
     </div>
     <div id="quickinfo" class="fl_right">
@@ -78,8 +78,8 @@ Licence URI: http://www.os-templates.com/template-terms
   <nav id="mainav" class="hoc clear"> 
     <!-- ################################################################################################ -->
     <ul class="clear">
-      <li class="active"><a href="#">Home</a></li>
-      <li class="active"><a href="#">Contact Us</a></li>
+      <li class="active"><a href="{% url 'home' %}">Home</a></li>
+      <li class="active"><a href="{% url 'home' %}">Contact Us</a></li>
       <!-- <li><a href="#">P</a></li> -->
       
     </ul>
@@ -136,15 +136,15 @@ Licence URI: http://www.os-templates.com/template-terms
       <form action = "#" method = "post" >
         {% csrf_token %}
         <label class="sr-o" for="sort"><b>SORT BY:</b></label>
-        <input type='radio' name='sortBy' value='1'><label for="1"> By Distance</label>
-        <input type='radio' name='sortBy' value='2'><label> By Rating</label>
-        <input type='radio' name='sortBy' value='3'><label> By No. of Views </label><br>
+       <!--  <input type='radio' name='sortBy' value='1'><label for="1"> By Distance</label>
+        --> <input type='radio' name='sortBy' value='2'><label>By Rating:</label>
+        <input type='radio' name='sortBy' value='3' checked="True"><label>By Price:</label><br>
         <label class="sr-o" for="query"><b>Choose one of the following queries:</b></label>
         <input type='radio' name='query' value='1'><label> More than x avg-rating</label>
         <input type='radio' name='query' value='2'><label> Atleast x 5-star ratings</label>
-        <input type='radio' name='query' value='3'><label> Distance of vicinity </label>
-        <input type='radio' name='query' value='4'><label> Maximum rent</label><br>
-        <input type='text' name='val' placeholder="Enter value">
+        <!-- <input type='radio' name='query' value='3'><label> Distance of vicinity </label>
+         --><input type='radio' name='query' value='4' checked="True"><label> Maximum rent</label><br>
+        <input type='text' name='val' placeholder="Enter value" required>
         <br>
         <input type='submit' class="btn" value='search'><br>
       </form>
@@ -162,16 +162,9 @@ Licence URI: http://www.os-templates.com/template-terms
     <div class="content two_third"> 
       <!-- ################################################################################################ -->
       <h1>Properties</h1>
-      <!-- <img class="imgr borderedbox inspace-5" src="../images/demo/imgr.gif" alt="">
-      <p>Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.</p>
-      <p>Dapiensociis <a href="#">temper donec auctortortis cumsan</a> et curabitur condis lorem loborttis leo. Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.</p>
-      <img class="imgl borderedbox inspace-5" src="../images/demo/imgl.gif" alt="">
-      <p>This is a W3C compliant free website template from <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a>. For full terms of use of this template please read our <a href="http://www.os-templates.com/template-terms">website template licence</a>.</p>
-      <p>You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more website templates visit our <a href="http://www.os-templates.com/">free website templates</a> section.</p>
-      <p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.</p> -->
-
+    
       {% for i in properties %}
-          <a href="#"> <b>Property</b>{{ i.id }}<br></a>
+          <a href="{% url 'prop' i.id %}"> <b>Property</b>{{ i.id }}<br></a>
           <b>Description: </b> {{ i.description }}<br> 
           <b>Location: </b> {{ i.location }} <br>
           <b>Price: </b> {{ i.price }}<br>
@@ -180,7 +173,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
       <div class="pagination">
         <!-- <span class="step-links"> -->
-        <div class='one_third' first>
+        <div class="one_third" first>
         </div>
         <div class="one_third">
             {% if properties.has_previous %}
@@ -197,79 +190,34 @@ Licence URI: http://www.os-templates.com/template-terms
           </div>
         <!-- </span> -->
       </div>
-<!-- 
-      <div id="comments">
-        <h2>Comments</h2>
-        <ul>
-          <li>
-            <article>
-              <header>
-                <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
-                <address>
-                By <a href="#">A Name</a>
-                </address>
-                <time datetime="2045-04-06T08:15+00:00">Friday, 6<sup>th</sup> April 2045 @08:15:00</time>
-              </header>
-              <div class="comcont">
-                <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article>
-              <header>
-                <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
-                <address>
-                By <a href="#">A Name</a>
-                </address>
-                <time datetime="2045-04-06T08:15+00:00">Friday, 6<sup>th</sup> April 2045 @08:15:00</time>
-              </header>
-              <div class="comcont">
-                <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-              </div>
-            </article>
-          </li>
-          <li>
-            <article>
-              <header>
-                <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
-                <address>
-                By <a href="#">A Name</a>
-                </address>
-                <time datetime="2045-04-06T08:15+00:00">Friday, 6<sup>th</sup> April 2045 @08:15:00</time>
-              </header>
-              <div class="comcont">
-                <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-              </div>
-            </article>
-          </li>
-        </ul>
-        <h2>Write A Comment</h2>
-        <form action="#" method="post">
-          <div class="one_third first">
-            <label for="name">Name <span>*</span></label>
-            <input type="text" name="name" id="name" value="" size="22" required>
-          </div>
-          <div class="one_third">
-            <label for="email">Mail <span>*</span></label>
-            <input type="email" name="email" id="email" value="" size="22" required>
-          </div>
-          <div class="one_third">
-            <label for="url">Website</label>
-            <input type="url" name="url" id="url" value="" size="22">
-          </div>
-          <div class="block clear">
-            <label for="comment">Your Comment</label>
-            <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-          </div>
-          <div>
-            <input type="submit" name="submit" value="Submit Form">
-            &nbsp;
-            <input type="reset" name="reset" value="Reset Form">
-          </div>
-        </form>
-      </div> -->
-      <!-- ################################################################################################ -->
+      <br><br><br><br><br>
+      <h1>My Rented Properties</h1>
+    
+      {% for i in myprop %}
+          <a href="{% url 'prop' i.id %}"> <b>Property</b>{{ i.id }}<br></a>
+          <b>Description: </b> {{ i.description }}<br> 
+          <b>Location: </b> {{ i.location }} <br>
+          <b>Price: </b> {{ i.price }}<br>
+          <b>Number of views: </b> {{ i.num_views }}<br><br><br>
+      {% endfor %}
+
+      <!-- <div class="pagination"> -->
+        <!-- <span class="step-links"> -->
+       <!--  <div class="one_third" first>
+        </div>
+        <div class="one_third">
+            {% if myprop.has_previous %}
+                <a href="?page={{ myprop.previous_page_number }}" class="btn">previous</a>
+            {% endif %}
+
+                Page {{ myprop.number }} of {{ myprop.paginator.num_pages }}.
+            
+            {% if myprop.has_next %}
+                <a href="?page={{ myprop.next_page_number }}" class="btn">next</a>
+            {% endif %}
+          </div>•••••••
+        --> <!-- </span> -->
+      <!-- </div> -->
     </div>
     <!-- ################################################################################################ -->
     <!-- / main body -->
@@ -286,9 +234,9 @@ Licence URI: http://www.os-templates.com/template-terms
       <h2 class="heading">Rent It Out</h2>
       <nav>
         <ul class="nospace inline pushright uppercase">
-          <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="{% url 'home' %}"><i class="fa fa-lg fa-home"></i></a></li>
+          <li><a href="{% url 'home' %}">About</a></li>
+          <li><a href="{% url 'home' %}">Contact</a></li>
           </ul>
       </nav>
     </div>

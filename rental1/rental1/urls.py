@@ -29,6 +29,6 @@ urlpatterns = [
     url(r'^registerVisitor$',     views.register_visitor, name="registerVis"),
     url(r'^login/addProperty$',   views.add_property,     name="addProperty"),
     url(r'^logout$',              views.logout_user,      name="logout"),
-    url(r'^viewProp$',            views.view_prop,        name="prop"),
+    url(r'^viewProp/(?P<id>[0-9]+)$',views.view_prop,       name="prop"),
 
 ]

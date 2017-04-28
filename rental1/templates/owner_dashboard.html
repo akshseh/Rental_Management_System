@@ -114,7 +114,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <!--       <h6>Lorem ipsum dolor</h6> -->
       <nav class="sdb_holder">
         <ul>
-          <li><a href='#'>Add propery</a></li>
+          <li><a href="{% url 'addProperty' %}">Add propery</a></li>
          <!--  <li><a href="#">View All tenants</a></li>
           <li><a href="#">Rent to get</a>
           </li>
@@ -153,6 +153,7 @@ Licence URI: http://www.os-templates.com/template-terms
       <b>Username:</b>{{ tenant.visitor_id }}<br>
       <b>Profile:</b>{{ tenant.visitor_id.profile }}<br>
       <b>Rent to be paid:</b>{{ tenant.rent_to_be_paid }}<br>
+      <hr><br>
       {% endfor %}
       <br><br><br>
       <h1>My Properties</h1>
@@ -165,18 +166,16 @@ Licence URI: http://www.os-templates.com/template-terms
       <p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus.</p> -->
 
       {% for i in properties %}
-          <a href="#"> <b>Property</b>{{ i.id }}<br></a>
+          <a href="{% url 'prop' i.id %}"> <b>Property</b>{{ i.id }}<br></a>
            <strong> Description : </strong> {{ i.description }}<br>
            <strong> Located in : </strong> {{ i.location }} <br>
            <strong> Num of views : </strong> {{ i.num_views }}<br>
            <br><br>
       {% endfor %}
-    </div>
-
       <div class="pagination">
         <!-- <span class="step-links"> -->
             {% if properties.has_previous %}
-                <a href="?page={{ properties.previous_page_number }}">previous</a>
+                <a href="?page={{ properties.previous_page_number }}" class="btn">previous</a>
             {% endif %}
 
             <!-- <span class="current"> -->
@@ -184,10 +183,15 @@ Licence URI: http://www.os-templates.com/template-terms
             <!-- </span> -->
 
             {% if properties.has_next %}
-                <a href="?page={{ properties.next_page_number }}">next</a>
+                <a href="?page={{ properties.next_page_number }}" class="btn">next</a>
             {% endif %}
         <!-- </span> -->
       </div>
+    </div>
+   <!--  <div class = 'one_half' first>   
+    </div>
+    <div class="one_half"> -->
+      <!-- </div> -->
 
 
 <!-- 
@@ -279,9 +283,9 @@ Licence URI: http://www.os-templates.com/template-terms
       <h2 class="heading">Rent It Out</h2>
       <nav>
         <ul class="nospace inline pushright uppercase">
-          <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="{% url 'home' %}"><i class="fa fa-lg fa-home"></i></a></li>
+          <li><a href="{% url 'home' %}">About</a></li>
+          <li><a href="{% url 'home' %}">Contact</a></li>
           </ul>
       </nav>
     </div>

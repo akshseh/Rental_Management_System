@@ -39,14 +39,14 @@ Licence URI: http://www.os-templates.com/template-terms
     <div class="fl_right">
       <ul>
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Register as owner</a></li>
+        <!-- <li><a href="login.html">Login</a></li>
+        <li><a href="">Register as owner</a></li>
         <li><a href="register.html">Register as visitor</a></li>
-
-        <!-- <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'register' %}">Register as owner</a></li>
-        <li><a href="{% url 'register' %}">Register as visitor</a></li>
  -->
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Register as owner</a></li>
+        <li><a href="{% url 'registerVis' %}">Register as visitor</a></li>
+
       </ul>
     </div>
     <!-- ################################################################################################ -->
@@ -96,7 +96,7 @@ Licence URI: http://www.os-templates.com/template-terms
             <p>Put your property on rent</p>
             <h3 class="heading">Be a Landlord</h3>
             <p>You can put your properties on rent and compare the profiles of visitors to choose the best the tenant to give your house to.</p>
-            <footer><a class="btn" href="#">Add property</a></footer>
+            <footer><a class="btn" href="{% url 'login' %}">Add property</a></footer>
           </article> 
         </li>
         <li>
@@ -104,7 +104,7 @@ Licence URI: http://www.os-templates.com/template-terms
             <p>Find Rentals</p>
             <h3 class="heading">Rent houses at cheapest prices</h3>
             <p>With a large variety of houses available to suit your needs, you can compare and find the neaarest and the cheapest house. </p>
-            <footer><a class="btn" href="#">View Rentals</a></footer>
+            <footer><a class="btn" href="{% url 'login' %}">View Rentals</a></footer>
           </article>
         </li>
         <!-- <li>
