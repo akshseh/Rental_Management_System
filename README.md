@@ -1,4 +1,4 @@
-# Rental_Management_System
+# Rental Management System
 It is a web-app to find rentals suited to your needs or publish your properties which are available for rent. It's backend has been developed in Django.
 Given are some of the screenshots of our web-app:
 
@@ -14,7 +14,7 @@ The **Login user page**, where the user (landlord/tenant/visitor) can login to s
 
 ![Properties](https://github.com/aksh98/Rental_Management_System/blob/gh-pages/properties.png)
 
-Given below is **The Landlord's dashboard**. It displays the properties owned by him (landlord). 
+Given below is **Owner's dashboard**. It displays the properties owned by him (landlord). 
 ![Owner Properties](https://github.com/aksh98/Rental_Management_System/blob/gh-pages/owner_properties.png)
 
 ![Owner Dashboard](https://github.com/aksh98/Rental_Management_System/blob/gh-pages/owner_dashboard.png)
