@@ -20,3 +20,7 @@ Given below is **Owner's dashboard**. It displays the properties owned by him (l
 ![Owner Dashboard](https://github.com/aksh98/Rental_Management_System/blob/gh-pages/owner_dashboard.png)
 
 The Tenant Dashboard is also similar to that of the Owner but instead of the owned properties, it'll display your rented property and the rent due amount. 
+
+Contributors:
+- Akarsha Sehwag (@aksh98)
+- Kushagra Arora (@kushagra7589)
